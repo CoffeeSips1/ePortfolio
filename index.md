@@ -71,7 +71,7 @@ In reflection, I found that enhancing my project from a previous course was simp
 ## Portfolio Enhancement Project - Code Review
 
 <div style="text-align: center;">
-	<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/AcxUeO4kWJA?autoplay=0" frameborder="0"></iframe>
+	<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/AcxUeO4kWJA?autoplay=0" frameborder="0" allowfullscreen></iframe>
     <p><em>Figure 5 - Project Code Review - CS-499 Computer Science Capstone</em></p>
 </div>
 
