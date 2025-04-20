@@ -10,21 +10,21 @@ This ePortfolio showcases the knowledge and skills I acquired during my Computer
 My journey through the computer science program at Southern New Hampshire University (SNHU) has been marked by a series of challenging projects and opportunities for growth that have collectively honed my skillset as a software engineer. Among these, my portfolio project, the development of an enhanced full-stack web application, stands out as a testament to my competence and employability in the field. 
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-410_Project_Source_1.png" width="720px" title="CS-410 Project Overview" />
+	<img src="assets/img/CS-410_Project_Source_1.png" title="CS-410 Project Overview" />
     <p><em>Figure 1 - CLI Project Overview - CS-410 Software Reverse Engineering</em></p>
 </div>
 
 The transformation of a CLI-based software into a comprehensive full-stack web application underscores my proficiency in both front-end and back-end development. Utilizing Microsoft's .NET and Entity Frameworks, I connected the application to an MSSQL database, enabling it to scale and utilize dynamic data. This project serves as a compelling demonstration of my extensive capabilities in software engineering and database management. By selecting an original artifact from a challenging course project, I showcased my ability to understand and reverse engineer compiled machine code, enhance basic applications, and integrate robust database solutions in a secure manor. My approach reflects my dedication to advancing my skillset and my readiness to tackle complex software design and implementation tasks in a professional setting.
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-340_Project_Dashboard_1.png" width="720px" title="CS-340 Project Overview" />
+	<img src="assets/img/CS-340_Project_Dashboard_1.png" title="CS-340 Project Overview" />
     <p><em>Figure 2 - Unit Testing Example - CS-340 Client / Server Development</em></p>
 </div>
 
 Collaboration is a cornerstone of effective software development, and throughout my academic and professional experiences, I have consistently demonstrated my ability to work effectively within team environments. By engaging with my peers and my instructors, I have fostered collaborative environments that support decision-making and innovation. My approach to teamwork is rooted in mutual respect, active listening, and a collaborative mindset, which enables me to contribute positively to any team dynamic. This is further reflected in the tutoring I offered to fellow classmates as we collaborated with the completion of various course materials
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-405_Unit_Test_Example_1.png" width="720px" title="CS-405 Project Excerpt" />
+	<img src="assets/img/CS-405_Unit_Test_Example_1.png" title="CS-405 Project Excerpt" />
     <p><em>Figure 3 - Unit Testing Example - CS-405 Secure Coding</em></p>
 </div>
 
@@ -55,14 +55,14 @@ For my portfolio project, I had to make three improvements to demonstrate my ski
 I selected an original artifact for enhancement that stemmed from a project I undertook during the CS-410 course from my degree program. In CS-410, we were tasked with reverse engineering fully compiled machine code into an uncompiled state using C++. I decided to extend this project by transforming the initial CLI-based software into a comprehensive full-stack web application. Utilizing Microsoft's .NET and Entity Frameworks, I connected the application to an MSSQL database enabling the application to scale and utilize dynamic data.
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-499_Enhanced_Project_1.png" width="720px" title="CS-499 Project Overview" />
+	<img src="assets/img/CS-499_Enhanced_Project_1.png" title="CS-499 Project Overview" />
     <p><em>Figure 4 - Web App Overview - CS-499 Computer Science Capstone</em></p>
 </div>
 
 This project serves as a compelling demonstration of my extensive capabilities as a software engineer. By selecting an original artifact from a challenging course project, I showcased my ability to not only understand and reverse engineer compiled machine code but also to enhance a basic CLI application into a sophisticated full-stack web application. The use of Microsoft's .NET and Entity Frameworks, along with the integration of an MSSQL database, underscores my proficiency in both front-end and back-end development. This choice reflects my dedication to advancing my skills and my readiness to tackle complex software design and implementation tasks in a professional setting.
 
 <div style="text-align: center;">
-	<img src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/Banner4.png" width="720px" title=".Net 8 Overview" />
+	<img src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2023/11/Banner4.png" title=".Net 8 Overview" />
 </div>
 
 In reflection, I found that enhancing my project from a previous course was simple thanks to my confidence and experience with similar tasks. I keep old project files handy to reuse modular code, streamlining the implementation of similar functions. This approach allows me to quickly create secure applications using templates from prior works and enables my continual improvement process which involves enhancing related works based on learnings from working on code.
@@ -90,21 +90,21 @@ Code reviews ensure quality assurance for our project code and usually help soft
 Reviewing the revised project, it is completely different to the original CLI based app. The new web-based app offers the ability to make changes to customers that are persistant thanks to the design and implementation of a MSSQL back-end database...
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-499_Enhanced_Project_EditCustomer.png" width="720px" title="CS-499 Project Overview" />
+	<img src="assets/img/CS-499_Enhanced_Project_EditCustomer.png" title="CS-499 Project Overview" />
     <p><em>Figure 6 - Web App Overview - CS-499 Computer Science Capstone</em></p>
 </div>
 
 Manage user accounts that utilize encrypted passwords so that the passwords are personal and not shared (like before) and allow for various permissions to be assigned to different users through the implementation of algorithmic authentication and authorization mechanisms...
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-499_Enhanced_Project_EditUser.png" width="720px" title="CS-499 Project Overview" />
+	<img src="assets/img/CS-499_Enhanced_Project_EditUser.png" title="CS-499 Project Overview" />
     <p><em>Figure 7 - Web App Overview - CS-499 Computer Science Capstone</em></p>
 </div>
 
 UI / UX enhancements such as confirmation features and cancelation options to allow operators the oppotunity to cancel acidental tasks and prevent unintentional data loss...
 
 <div style="text-align: center;">
-	<img src="assets/img/CS-499_Enhanced_Project_DeleteCustomer.png" width="720px" title="CS-499 Project Overview" />
+	<img src="assets/img/CS-499_Enhanced_Project_DeleteCustomer.png" title="CS-499 Project Overview" />
     <p><em>Figure 9 - Web App Overview - CS-499 Computer Science Capstone</em></p>
 </div>
 
