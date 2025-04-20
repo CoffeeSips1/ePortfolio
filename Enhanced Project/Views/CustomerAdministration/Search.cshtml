@@ -1,0 +1,36 @@
+﻿@using SNHU_Capstone_Project.Models.Entities
+@model List<Customer>
+
+@{
+    Layout = null;
+    int i = 0;
+}
+
+@foreach (var customer in Model) {
+    i++;
+    <tr class="align-middle">
+        <th scope="row">@i</th>
+        <td>@customer.Name</td>
+        <td>@Enum.GetName(typeof(Customer.Service), customer.ChosenService)</td>
+        <td>@customer.Added</td>
+        <td>
+            @if (!User.HasClaim("Administrator", "True") && !User.HasClaim("PermissionUpdate", "True"))
+            {
+                <button class="btn btn-primary" disabled><i class="bi bi-pencil-fill"></i></button>
+            }
+            else
+            {
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCustomerModal" onclick="AJAXFetch('CustomerAdministration/Edit/', '@customer.Id', 'EditCustomer')"><i class="bi bi-pencil-fill"></i></button>
+            }
+            @if (!User.HasClaim("Administrator", "True") && !User.HasClaim("PermissionDelete", "True"))
+            {
+                <button class="btn btn-danger" disabled><i class="bi bi-trash3-fill"></i></button>
+            }
+            else
+            {
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="renderDeleteModal('customerToDelete', '@customer.Id')"><i class="bi bi-trash3-fill"></i></button>
+            }
+        </td>
+    </tr>
+
+}

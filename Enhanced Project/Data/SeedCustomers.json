@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "Bob Jones",
+    "ChosenService": "1"
+  },
+  {
+    "Name": "Sarah Davis",
+    "ChosenService": "2"
+  },
+  {
+    "Name": "Amy Friendly",
+    "ChosenService": "1"
+  },
+  {
+    "Name": "Johnny Smith",
+    "ChosenService": "1"
+  },
+  {
+    "Name": "Carol Spears",
+    "ChosenService": "2"
+  }
+
+]

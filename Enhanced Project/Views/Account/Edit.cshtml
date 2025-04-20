@@ -1,0 +1,101 @@
+﻿@using SNHU_Capstone_Project.Models.Entities
+@model User
+
+@{
+    Layout = null;
+}
+
+<form asp-action="Edit">
+    <div class="modal-body" id="EditUser">
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="Username">Username</label>
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" asp-for="Username" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="Email">Email</label>
+            </div>
+            <div class="col">
+                <input class="form-control" type="text" asp-for="Email" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="Status">Enabled</label>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    @Html.CheckBox("ActiveStatus", Model.Status.Equals(SNHU_Capstone_Project.Models.Entities.User.UserStatus.Active), new { @class = "form-check-input form-control" })
+                </div>
+            </div>
+        </div>
+        <h6>Permissions</h6>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="canRead">View</label>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(Model => Model.canRead, new { @class = "form-check-input", @role = "switch" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="canUpdate">Modify</label>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(Model => Model.canUpdate, new { @class = "form-check-input", @role = "switch" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="canCreate">Create</label>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(Model => Model.canCreate, new { @class = "form-check-input", @role = "switch" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="canDelete">Delete</label>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(Model => Model.canDelete, new { @class = "form-check-input", @role = "switch" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label" asp-for="isAdmin">Administrator</label>
+            </div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    @Html.CheckBoxFor(Model => Model.isAdmin, new { @class = "form-check-input", @role = "switch" })
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="form-check form-switch">
+                    <button class="btn btn-primary" type="button" onclick="AJAXFetch('ChangeUserPassword/', '@Model.Id', 'EditUser')">Change Password <i class="bi bi-box-arrow-in-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearDiv('EditUser')">Close</button>
+        <button type="submit" class="btn btn-primary" id="UpdateUserButton" dissabled>Update</button>
+    </div>
+</form>

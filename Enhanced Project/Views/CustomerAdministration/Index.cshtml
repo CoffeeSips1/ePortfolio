@@ -1,0 +1,163 @@
+﻿@using SNHU_Capstone_Project.Models.Entities
+@model Customer
+
+@{
+    ViewData["Title"] = "Customer Administration";
+}
+
+<div class="row">
+    <div div class="col-auto">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end">
+    <div class="row">
+        <div class="col-auto">
+            <input class="form-control" type="text" name="search" placeholder="Search.." id="customerSearch" onkeyup="AJAXSearch('/CustomerAdministration/Search', this.value, 'customerTable')" />
+        </div>
+        <div class="col-auto">
+            @if (!User.HasClaim("Administrator", "True") && !User.HasClaim("PermissionCreate", "True"))
+            {
+                <button class="btn btn-secondary" disabled>New Customer</button>
+            }
+            else
+            {
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newCustomerModal">New Customer</button>
+            }
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="align-middle">
+            <th scope="col">
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none;" id="idDefault" onclick="updateAJAXMeta('DEC', 'idDefault', 'idDEC')">#</a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="idDEC" onclick="updateAJAXMeta('ASC', 'idDEC', 'idASC')"># <i class="bi bi-chevron-down"></i></a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="idASC" onclick="updateAJAXMeta('', 'idASC', 'idDefault')"># <i class="bi bi-chevron-up"></i></a>
+            </th>
+            <th scope="col">
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none;" id="nameDefault" onclick="updateAJAXMeta('NameDEC', 'nameDefault', 'nameDEC')">Name</a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="nameDEC" onclick="updateAJAXMeta('NameASC', 'nameDEC', 'nameASC')">Name <i class="bi bi-chevron-down"></i></a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="nameASC" onclick="updateAJAXMeta('', 'nameASC', 'nameDefault')">Name <i class="bi bi-chevron-up"></i></a>
+            </th>
+            <th scope="col">
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none;" id="serviceDefault" onclick="updateAJAXMeta('ServiceDEC', 'serviceDefault', 'serviceDEC')">Chosen Service</a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="serviceDEC" onclick="updateAJAXMeta('ServiceASC', 'serviceDEC', 'serviceASC')">Chosen Service <i class="bi bi-chevron-down"></i></a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="serviceASC" onclick="updateAJAXMeta('', 'serviceASC', 'serviceDefault')">Chosen Service <i class="bi bi-chevron-up"></i></a>
+            </th>
+            <th scope="col">
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none;" id="addedDefault" onclick="updateAJAXMeta('AddedDEC', 'addedDefault', 'addedDEC')">Added</a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="addedDEC" onclick="updateAJAXMeta('AddedASC', 'addedDEC', 'addedASC')">Added <i class="bi bi-chevron-down"></i></a>
+                <a href="#" class="link-dark link-opacity-10-hover" style="text-decoration: none; display: none;" id="addedASC" onclick="updateAJAXMeta('', 'addedASC', 'addedDefault')">Added <i class="bi bi-chevron-up"></i></a>
+                </th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody id="customerTable"></tbody>
+</table>
+
+<div class="modal fade" tabindex="-1" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="DeleteCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="Delete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <a>Are you sure?</a>
+                    <input type="hidden" id="customerToDelete" name="Id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash3-fill"></i> Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newCustomerModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="newCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCustomerModalLabel">Add Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Add">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" asp-for="Name">Name</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="text" asp-for="Name" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" asp-for="ChosenService">Chosen Service</label>
+                        </div>
+                        <div class="col">
+                            @Html.DropDownList("ChosenService", new SelectList(Enum.GetValues(typeof(Customer.Service))), new { @class = "form-select" })
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="AddUserButton" dissabled>Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCustomerModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCustomerModalLabel">Edit Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Edit">
+                <div class="modal-body" id="EditCustomer"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="UpdateCustomerButton" dissabled>Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/js/AJAXSearch.js" onload="AJAXSearch('/CustomerAdministration/Search', '', 'customerTable')"></script>
+
+    <script type="text/javascript">
+
+        function renderDeleteModal(id, source) {
+
+            var element = document.getElementById(id);
+            element.value = source;
+
+        }
+
+        function updateAJAXMeta(str, current, next) {
+            AJAXMeta = str;
+
+            var element = document.getElementById('customerSearch');
+            AJAXSearch('/CustomerAdministration/Search', element.value, 'customerTable');
+            document.getElementById(current).style.display = "none";
+            document.getElementById(next).style.display = "";
+
+        }
+
+    </script>
+
+}

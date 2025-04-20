@@ -1,0 +1,208 @@
+﻿@using SNHU_Capstone_Project.Models.Entities
+@model User
+
+@{
+    ViewData["Title"] = "User Administration";
+}
+
+<div class="row">
+    <div div class="col-auto">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<div class="d-flex justify-content-end">
+    <div class="row">
+        <div class="col-auto">
+            <input class="form-control" type="text" name="search" placeholder="Search..." id="userSearch" onkeyup="AJAXSearch('/Account/Search', this.value, 'userTable')" />
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addUserModal" onclick="AJAXFetch('Add/', '', 'AddUser')"><i class="bi bi-person-fill-add"></i> New User</button>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped align-middle table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th scope="col">Last Login</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+</table>
+
+<div class="modal fade" tabindex="-1" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="DeleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="Delete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <a>Are you sure?</a>
+                    <input type="hidden" id="userToDelete" name="Id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash3-fill"></i> Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="newUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newUserModalLabel">Add User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearDiv('AddUser')"></button>
+            </div>
+            <form asp-action="Add">
+                <div class="modal-body" id="AddUser"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="clearDiv('AddUser')">Close</button>
+                    <button type="submit" class="btn btn-primary" id="AddUserButton" dissabled>Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearDiv('EditUser')"></button>
+            </div>
+            <div id="EditUser"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/AJAXSearch.js" onload="AJAXSearch('/Account/Search', '', 'userTable')"></script>
+
+    <script type="text/javascript">
+
+        function renderDeleteModal(id, source) {
+
+            var element = document.getElementById(id);
+            element.value = source;
+
+        }
+
+        function validatePassword(buttonToEnable) {
+
+            const password = document.getElementById('Password').value;
+            const password2 = document.getElementById('ConfirmPassword').value;
+
+            let upperChars = 0;
+            let lowerChars = 0;
+            let specialChars = 0;
+            let validationCounter = 0;
+
+
+            //  Show the password validation list
+            document.getElementById('passwordValidationList').hidden = false;
+
+
+            //  Count the characters in the password string
+            for (let i = 0; i < password.length; i++) {
+
+                const char = password.charAt(i);
+
+                if (char >= 'A' && char <= 'Z')
+                {
+                    upperChars++;
+                }
+                else if (char >= 'a' && char <= 'z')
+                {
+                    lowerChars++;
+                }
+                else
+                {
+                    specialChars++;
+                }
+
+            }
+
+
+
+            // Check each condition and update the corresponding label
+            if (password.length >= 8) {
+                document.getElementById('minLength').innerHTML = '<i class="bi bi-check text-success"></i> Minimum 8 characters';
+                validationCounter++;
+            }
+            else {
+                document.getElementById('minLength').innerHTML = '<i class="bi bi-x text-danger"></i> Minimum 8 characters';
+            }
+
+            if (password.length <= 255) {
+                document.getElementById('maxLength').innerHTML = '<i class="bi bi-check text-success"></i> Maximum 255 characters';
+                validationCounter++;
+            }
+            else {
+                document.getElementById('maxLength').innerHTML = '<i class="bi bi-x text-danger"></i> Maximum 255 characters';
+            }
+
+            if (upperChars >= 1) {
+                document.getElementById('uppercase').innerHTML = '<i class="bi bi-check text-success"></i> At least 1 uppercase characters';
+                validationCounter++;
+            }
+            else
+            {
+                document.getElementById('uppercase').innerHTML = '<i class="bi bi-x text-danger"></i> At least 1 uppercase characters';
+            }
+
+            if (specialChars >= 1)
+            {
+                document.getElementById('symbol').innerHTML = '<i class="bi bi-check text-success"></i> At least 1 special characters';
+                validationCounter++;
+            }
+            else
+            {
+                document.getElementById('symbol').innerHTML = '<i class="bi bi-x text-danger"></i> At least 1 special characters';
+            }
+
+            if (password === password2 && (password + password2) !== "")
+            {
+                document.getElementById('pwdMatch').innerHTML = '<i class="bi bi-check text-success"></i> Passwords must match';
+                validationCounter++;
+            }
+            else
+            {
+                document.getElementById('pwdMatch').innerHTML = '<i class="bi bi-x text-danger"></i> Passwords must match';
+            }
+
+            if (validationCounter == 5)
+            {
+                document.getElementById(buttonToEnable).disabled = false;
+            }
+            else
+            {
+                document.getElementById(buttonToEnable).disabled = true;
+            }
+
+
+        }
+
+        function clearDiv(div)
+        {
+            document.getElementById(div).innerHTML = "";
+        }
+
+    </script>
+
+}

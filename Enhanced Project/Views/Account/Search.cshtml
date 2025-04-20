@@ -1,0 +1,24 @@
+﻿@using SNHU_Capstone_Project.Models.Entities
+@model List<User>
+
+@{
+    Layout = null;
+    int i = 0;
+}
+
+@foreach (var user in Model)
+{
+    i++;
+    <tr>
+        <th scope="row">@i</th>
+        <td scope="col">@user.Username</td>
+        <td scope="col">@user.Email</td>
+        <td scope="col">@Enum.GetName(typeof(User.UserStatus), user.Status)</td>
+        <td scope="col">@user.LastLogin</td>
+        <td scope="col">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="AJAXFetch('Edit/', '@user.Id', 'EditUser')"><i class="bi bi-pencil-fill"></i></button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="renderDeleteModal('userToDelete', '@user.Id')"><i class="bi bi-trash3-fill"></i></button>
+        </td>
+    </tr>
+
+}

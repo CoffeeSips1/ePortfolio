@@ -1,0 +1,24 @@
+﻿@using SNHU_Capstone_Project.Models.Entities
+@model Customer
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col">
+        <label class="form-label" asp-for="Name">Name</label>
+    </div>
+    <div class="col">
+        <input class="form-control" type="text" asp-for="Name" />
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label class="form-label" asp-for="ChosenService">Chosen Service</label>
+    </div>
+    <div class="col">
+        @Html.DropDownList("ChosenService", new SelectList(Enum.GetValues(typeof(Customer.Service))), new { @class="form-select" })
+    </div>
+</div>
+<input type="hidden" asp-for="Id" />
